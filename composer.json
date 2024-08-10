@@ -1,0 +1,17 @@
+{
+    "name": "api/pruebatecnica",
+    "description": "Users API",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Api\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Harold Montes",
+            "email": "haroldjosehd24@gmail.com"
+        }
+    ],
+    "require": {}
+}
