@@ -2,7 +2,7 @@
 
 $router = new \Bramus\Router\Router();
 
-$router->get('/', function() {
+$router->get('/api/users', function() {
     echo 'test';
 });
 
