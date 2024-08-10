@@ -12,7 +12,7 @@ class UserModel {
     }
 
     public function getUsers(){
-        $sql = "SELECT * FROM data_user";
+        $sql = "SELECT * FROM users";
         $result = $this->db->query($sql);
         if ($result) {
             $data = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class UserModel {
     }
 
     public function getUser(int $id){
-        $sql = "SELECT * FROM data_user WHERE id=:id";
+        $sql = "SELECT * FROM users WHERE id=:id";
         $result = $this->db->prepare($sql);
         if ($result) {
             $result->execute([
@@ -34,8 +34,20 @@ class UserModel {
         }
     }
 
+    public function getUserEmail(string $email){
+        $sql = "SELECT * FROM users WHERE email=:email";
+        $result = $this->db->prepare($sql);
+        if ($result) {
+            $result->execute([
+                ":email" => $email
+            ]);
+            $data = $result->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        }
+    }
+
     public function addUser(array $data){
-        $sql = "INSERT into data_user(name, last_name, email) VALUES (:name, :last_name, :email)";
+        $sql = "INSERT into users(name, last_name, email) VALUES (:name, :last_name, :email)";
         $result = $this->db->prepare($sql);
         if ($result) {
             $result->execute([
@@ -47,7 +59,7 @@ class UserModel {
     }
 
     public function updateUser(array $data){
-        $sql = "UPDATE data_user SET name = :name, last_name =:last_name, email=:email WHERE id=:id";
+        $sql = "UPDATE users SET name = :name, last_name =:last_name, email=:email WHERE id=:id";
         $result = $this->db->prepare($sql);
         if ($result) {
             $result->execute([
@@ -60,7 +72,7 @@ class UserModel {
     }
 
     public function deleteUser(int $id){
-        $sql = "DELETE FROM data_user WHERE id=:id";
+        $sql = "DELETE FROM users WHERE id=:id";
         $result = $this->db->prepare($sql);
         if ($result) {
             $result->execute([
@@ -68,5 +80,5 @@ class UserModel {
             ]);
         }
     }
-    
+
 }
