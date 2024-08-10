@@ -1,5 +1,6 @@
 <?php
 
+namespace Api\helpers;
 class HttpResponses {
     public static array $message = [
         'status' => '',
@@ -33,6 +34,14 @@ class HttpResponses {
     {
         http_response_code(404);
         self::$message['status'] = 404;
+        self::$message['message'] = $res;
+        return self::$message;
+    }
+
+    public static function serverError(string $res ="500 Internal Server Error")
+    {
+        http_response_code(500);
+        self::$message['status'] = 500;
         self::$message['message'] = $res;
         return self::$message;
     }

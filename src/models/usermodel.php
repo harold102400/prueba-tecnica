@@ -55,6 +55,7 @@ class UserModel {
                 ":last_name" => $data["last_name"],
                 "email" => $data["email"]
             ]);
+            return $data;
         }
     }
 

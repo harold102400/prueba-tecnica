@@ -2,6 +2,7 @@
 
 namespace Api\controllers;
 
+use Api\helpers\HttpResponses;
 use Api\models\UserModel;
 
 class UserController {
@@ -16,9 +17,8 @@ class UserController {
             $data = $this->userModel->getUsers();
             echo json_encode($data);
         } catch (\Throwable $error) {
-            echo "<pre>";
+            echo json_encode(HttpResponses::serverError());
             var_dump($error);
-            echo "</pre>";
         }
     }
 
@@ -32,12 +32,13 @@ class UserController {
             ];
             $existingUser =  $this->userModel->getUserEmail($data["email"]);
             if ($existingUser) {
-                echo json_encode("The user with this email already exists try a different email");
+                echo json_encode(HttpResponses::notFound("The user with this email already exists try a different email"));
                 return;
             }
-            $this->userModel->addUser($allData);
-            echo json_encode(204);
+            $user = $this->userModel->addUser($allData);
+            echo json_encode(HttpResponses::created($user));
         } catch (\Throwable $e) {
+            echo json_encode(HttpResponses::serverError());
            var_dump($e);
         }
     }
@@ -47,11 +48,12 @@ class UserController {
         try {
             $user = $this->userModel->getUser($id);
             if (!$user) {
-                echo json_encode("There is not an user under this id");
+                echo json_encode(HttpResponses::notFound("There is not an user under this id"));
             } else {
                 echo json_encode($user);
             }
         } catch (\Throwable $e) {
+            echo json_encode(HttpResponses::serverError());
             var_dump($e);
         }
     }
@@ -67,9 +69,10 @@ class UserController {
             ];
 
             $this->userModel->updateUser($allData);
-            echo json_encode("User with ".$id. " has been updated");
+            echo json_encode(HttpResponses::ok("User with ".$id. " has been updated"));
 
         } catch (\Throwable $e) {
+            echo json_encode(HttpResponses::serverError());
             var_dump($e);
         }
     }
@@ -78,8 +81,9 @@ class UserController {
     {
         try {
             $this->userModel->deleteUser($id);
-            echo json_encode(204);
+            echo json_encode(HttpResponses::noContent());
         } catch (\Throwable $e) {
+            echo json_encode(HttpResponses::serverError());
             var_dump($e);
         }
     }
