@@ -2,8 +2,10 @@
 
 namespace Api\controllers;
 
+use Api\helpers\ErrorLog;
 use Api\helpers\HttpResponses;
 use Api\models\UserModel;
+
 
 class UserController {
     private $userModel;
@@ -16,9 +18,10 @@ class UserController {
         try {
             $data = $this->userModel->getUsers();
             echo json_encode($data);
-        } catch (\Throwable $error) {
+        } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
-            var_dump($error);
+            ErrorLog::showErrors();
+            error_log("Error message :" . $e);
         }
     }
 
@@ -39,7 +42,8 @@ class UserController {
             echo json_encode(HttpResponses::created($user));
         } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
-           var_dump($e);
+            ErrorLog::showErrors();
+            error_log("Error message :" . $e);
         }
     }
 
@@ -54,7 +58,8 @@ class UserController {
             }
         } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
-            var_dump($e);
+            ErrorLog::showErrors();
+            error_log("Error message :" . $e);
         }
     }
 
@@ -73,7 +78,8 @@ class UserController {
 
         } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
-            var_dump($e);
+            ErrorLog::showErrors();
+            error_log("Error message :" . $e);
         }
     }
 
@@ -84,7 +90,8 @@ class UserController {
             echo json_encode(HttpResponses::noContent());
         } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
-            var_dump($e);
+            ErrorLog::showErrors();
+            error_log("Error message :" . $e);
         }
     }
 }

@@ -1,6 +1,9 @@
 <?php
 namespace Api\database;
+
+use Api\helpers\ErrorLog;
 use \PDO;
+use PDOException;
 class DbConnection {
 
     private static $instace = null;
@@ -20,7 +23,12 @@ class DbConnection {
         $this->dbname = "user_data";
         $this->port = "4306";
 
+       try {
         $this->conn = new PDO("mysql:host=$this->host;port=$this->port;dbname=$this->dbname", $this->user, $this->pass);
+       } catch (PDOException $e) {
+        ErrorLog::showErrors();
+        error_log("Error message\n" . $e);
+       }
     } 
 
     public static function getInstance()
