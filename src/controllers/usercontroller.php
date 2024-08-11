@@ -74,7 +74,7 @@ class UserController {
             ];
 
             $this->userModel->updateUser($allData);
-            echo json_encode(HttpResponses::ok("User with ".$id. " has been updated"));
+            echo json_encode(HttpResponses::ok("User with id ".$id. " has been updated"));
 
         } catch (\Throwable $e) {
             echo json_encode(HttpResponses::serverError());
