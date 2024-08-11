@@ -12,7 +12,7 @@
 - Install XAMPP and start/activate the Apache and MySQL modules.
 - Install Composer in your computer, you can get it from this website https://getcomposer.org/download/ and once it is installed in your computer, you need to run in your terminal inside the project the command **composer install** to install the project dependencies.
 - In Postman you will use http://localhost/api/users, which is the endpoint for the routes.
-- For the database functionality, create a database in MySQL named "user_data" and import the table called "database.sql
+- For the database functionality, create a database in MySQL named "user_data" and import the table called "database.sql"
 
 ## ABOUT THE PROJECT <img src="https://i.pinimg.com/736x/b0/4a/09/b04a095495f81d26da9801a1d58ec0c3.jpg" width="50px" height="50px"></img>
 
